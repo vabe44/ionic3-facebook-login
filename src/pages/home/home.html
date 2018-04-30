@@ -6,12 +6,21 @@
 
 <ion-content padding>
   <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <p *ngIf="!user">Please log in to continue.</p>
+
+  <ion-card *ngIf="user">
+    <img [src]="user.picture.data.url"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{ user.name }}
+        </ion-card-title>
+      <p>{{ user.gender }}, {{ user.age_range.min }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <button *ngIf="!user" ion-button (click)="loginWithFacebook()">Login with Facebook</button>
+  <button *ngIf="user" ion-button clear color="danger" (click)="logoutOfFacebook()">Logout from Facebook</button>
+
+  <!-- <button ion-button (click)="firebaseTest()">Firebase test</button> -->
+  <button *ngIf="user" ion-button (click)="authTest()">Currentuser test</button>
 </ion-content>
